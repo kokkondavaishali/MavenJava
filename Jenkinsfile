@@ -33,4 +33,22 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            emailext(
+                subject: "Jenkins Build Successful: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "The Jenkins build was successful.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}",
+                to: "kokkondavaishali@gmail.com"
+            )
+        }
+
+        failure {
+            emailext(
+                subject: "Jenkins Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "The Jenkins build has failed.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}",
+                to: "kokkondavaishali@gmail.com"
+            )
+        }
+    }
 }
